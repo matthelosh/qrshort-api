@@ -55,11 +55,30 @@ def shorten_url():
 
 @app.route('/<short_code>')
 def redirect_to_long_url(short_code):
-    url_entry = URL.query.filter_by(short_code=short_code).first()
-    if url_entry:
-        return redirect('https://google.com')
-    else:
-        return "URL not found", 404
+    # url_entry = URL.query.filter_by(short_code=short_code).first()
+    # if url_entry:
+    #     return redirect('https://google.com')
+    # else:
+    #     return "URL not found", 404
+    # Log 1: Masuk ke route
+    app.logger.info(f"[[DEBUG]] เข้าถึง route redirect untuk: {short_code}") # Menggunakan penanda unik dan bahasa berbeda untuk memastikan terlihat jelas
+
+    try:
+        # Log 2: Sebelum memanggil redirect
+        app.logger.info("[[DEBUG]] ก่อนเรียก fungsi redirect ke Google.")
+
+        response = redirect("https://www.google.com")
+
+        # Log 3: Setelah memanggil redirect (ini mungkin tidak tercapai jika redirect() segera mengembalikan respons)
+        app.logger.info("[[DEBUG]] Setelah panggilan redirect berhasil.")
+
+        return response
+
+    except Exception as e:
+        # Log Error jika terjadi Exception
+        app.logger.error(f"[[DEBUG]] Terjadi Error saat redirect: {e}", exc_info=True)
+        # Kembalikan status code yang berbeda untuk melihat apakah error logging berhasil
+        return "Internal Server Error under construction", 500
 
 @app.route('/api/generate-qr', methods=['POST'])
 def generate_qr_code():
