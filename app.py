@@ -11,7 +11,8 @@ import os
 from PIL import Image, ImageDraw # type: ignore
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, origins=["https://kodeqr.pkgwagir.or.id", "http://localhost:5173"])
 
 if not os.path.exists('instance/urls.db'):
     file_db = open("instance/urls.db", "w")
