@@ -13,6 +13,10 @@ from PIL import Image, ImageDraw # type: ignore
 app = Flask(__name__)
 CORS(app)
 
+if not os.path.exists('instance/urls.db'):
+    file_db = open("instance/urls.db", "w")
+    file_db.close()
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///urls.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
