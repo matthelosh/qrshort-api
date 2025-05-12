@@ -57,7 +57,7 @@ def shorten_url():
 def redirect_to_long_url(short_code):
     url_entry = URL.query.filter_by(short_code=short_code).first()
     if url_entry:
-        return redirect(url_entry.long_url)
+        return redirect('https://google.com')
     else:
         return "URL not found", 404
 
